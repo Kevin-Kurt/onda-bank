@@ -1,52 +1,15 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { FormInput } from "@/components/ui/FormInput";
 import logo from "../../assets/logo.avif";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-
-type FormData = {
-  email: string;
-  password: string;
-};
+import { useLoginLogic } from "./login";
 
 export default function Login() {
-  const navigate = useNavigate();
-  const [showTooltip, setShowTooltip] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm<FormData>();
-
-  const email = watch("email");
-  const password = watch("password");
-
-  function onSubmit(data: FormData) {
-    console.log(data);
-  }
-
-  const handleLogin = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setShowTooltip(true);
-      setTimeout(() => setShowTooltip(false), 3000); 
-      return;
-    }
-
-    if (!password || password.trim() === "") {
-      alert("A senha não pode ser vazia.");
-      return;
-    }
-
-    navigate("/dashboard"); // Navega para a tela de Dashboard
-  };
+  const { register, handleSubmit, errors, onSubmit, showTooltip } =
+    useLoginLogic();
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen w-full">
-      <div className="order-2 md:order-1 flex flex-col justify-center items-center w-full md:w-1/2 bg-white p-6 mt-1 md:mt-0 md:mb-20 md:min-h-[80vh]">
+      <div className="order-2 md:order-1 flex flex-col justify-center items-center w-full md:w-1/2 bg-white p-6">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full max-w-sm space-y-4"
@@ -54,53 +17,48 @@ export default function Login() {
           <h1 className="text-xl font-bold text-center">Login</h1>
 
           <div>
-            <Input
+            <FormInput
               placeholder="Email"
-              {...register("email", {
+              register={register("email", {
                 required: "Email obrigatório",
                 pattern: {
                   value: /\S+@\S+\.\S+/,
                   message: "Email inválido",
                 },
               })}
-              className={errors.email ? "border-red-500" : ""}
+              error={errors.email}
             />
-
-            {errors.email?.message && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.email.message}
-              </p>
-            )}
           </div>
 
           <div>
-            <Input
+            <FormInput
               placeholder="Senha"
               type="password"
-              {...register("password", {
+              register={register("password", {
                 required: "Senha obrigatória",
               })}
-              className={errors.password ? "border-red-500" : ""}
+              error={errors.password}
             />
-
-            {errors.password?.message && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.password.message}
-              </p>
-            )}
           </div>
 
-          <Button className="w-full bg-[#014328] text-white hover:bg-[#012f1f]" onClick={handleLogin}>
+          <Button
+            type="submit"
+            className="w-full bg-[#014328] text-white hover:bg-[#012f1f]"
+          >
             Entrar
           </Button>
+
+          {showTooltip && (
+            <p className="text-red-500 text-sm text-center">Email inválido</p>
+          )}
         </form>
       </div>
 
-      <div className="order-1 md:order-2 flex flex-col items-center justify-start w-full md:w-1/2 bg-[#014328] p-10 pt-10 md:pt-6">
+      <div className="order-1 md:order-2 flex flex-col items-center justify-start w-full md:w-1/2 bg-[#014328] p-10">
         <img
           src={logo}
           alt="Logo"
-          className="w-90 md:w-130 object-contain p-4 mt-0 md:mt-28"
+          className="w-90 md:w-130 object-contain p-4 md:mt-10"
         />
         <span className="text-white text-sm md:text-lg font-medium text-center">
           Soluções financeiras que acompanham você
