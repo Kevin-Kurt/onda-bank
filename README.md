@@ -1,73 +1,56 @@
+link site: https://onda-bank.vercel.app
+
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+📌 Projeto
+Este repositório contém um projeto front-end desenvolvido com foco em boas práticas de desenvolvimento, organização de código e escalabilidade.
 
-Currently, two official plugins are available:
+🚀 Como rodar o projeto
+Pré-requisitos
+Node.js >= 18
+npm ou yarn
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Instalação
+# Clonar o repositório
+git clone <URL_DO_REPOSITORIO>
 
-## React Compiler
+# Acessar a pasta do projeto
+cd nome-do-projeto
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Instalar dependências
+npm install
+# ou
+yarn install
 
-## Expanding the ESLint configuration
+Executar em modo desenvolvimento
+npm run dev
+# ou
+yarn dev
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Decisões técnicas adotadas
+Vite como bundler pela rapidez no desenvolvimento
+Tailwind CSS para estilização utilitária e produtividade
+React Hook Form para gerenciamento eficiente de formulários
+Separação de responsabilidades entre componentes e hooks
+Organização baseada em componentes reutilizáveis
+Uso de aliases (@/) para facilitar imports
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Melhorias futuras
+Adição de autenticação real com backend
+Integração com API externa
+Internacionalização (i18n)
+Melhor cobertura de responsividade mobile
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+🔐 Proteção contra Engenharia Reversa
+Remover nomes claros de funções e variáveis no build
+Evitar lógica crítica no front-end
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+🛡️ Proteção contra Vazamento de Dados
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Criptografia de dados sensíveis
+* Senhas nunca armazenadas em texto puro
+* Uso de hash seguro (bcrypt, Argon2)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Segurança de armazenamento
+* Nunca salvar token sensível em localStorage sem cuidado
+* Evitar expor dados no front-end desnecessariamente
