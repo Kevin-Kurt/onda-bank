@@ -83,7 +83,7 @@ export default function Dashboard() {
         <img
           src={logo}
           alt="Logo"
-          className="w-50 h-16 object-contain p-2 mb-2 mt-2 mx-auto"
+          className="w-70 h-16 object-contain p-2 mb-2 mt-2 mx-auto"
         />
         <h2 className="text-lg font-semibold mb-2">Saldo disponível</h2>
         <span className="text-2xl md:text-4xl font-bold">
